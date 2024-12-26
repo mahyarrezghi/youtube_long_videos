@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "YouTube Long Videos Filter",
+    "version": "1.0",
+    "description": "Filters YouTube videos to show only those longer than a specified duration.",
+    "permissions": ["activeTab", "scripting", "storage"],
+    "content_scripts": [
+        {
+            "matches": ["*://www.youtube.com/*"],
+            "js": ["content.js"]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": "icon.png"
+    }
+}
