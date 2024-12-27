@@ -23,17 +23,30 @@ function parseDuration(duration) {
     return totalMinutes / 60; // Convert seconds to minutes
 }
 
+// Function to check if the current URL is a creator's page
+function isCreatorPage() {
+    return window.location.href.includes('@');
+}
+
 // Retrieve the minimum duration from storage and filter videos
 chrome.storage.sync.get('minDuration', (data) => {
     const minDuration = data.minDuration || 30; // Default to 30 minutes if not set
-    filterVideos(minDuration);
+    
+    // Check if we are on a creator's page
+    if (!isCreatorPage()) {
+        filterVideos(minDuration);
+    }
 });
 
 // Set up a MutationObserver to watch for changes in the video list
 const observer = new MutationObserver(() => {
     chrome.storage.sync.get('minDuration', (data) => {
         const minDuration = data.minDuration || 30; // Default to 30 minutes if not set
-        filterVideos(minDuration);
+        
+        // Check if we are on a creator's page
+        if (!isCreatorPage()) {
+            filterVideos(minDuration);
+        }
     });
 });
 
